@@ -133,10 +133,13 @@ console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid + "\n");
 
 /**
  * Reflection question 4
+ * In the Class-object. Not in the Class.prototype. 
  */
 /**
  * Reflection question 5
+ * Yes. 
  */
 /**
  * Reflection question 6
+ * Yes, using #. #privatemethod() or #privatefield
  */
