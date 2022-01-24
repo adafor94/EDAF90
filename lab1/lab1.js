@@ -50,6 +50,7 @@ class Salad {
 
 Salad.instanceCounter = 0
 
+
 let myCaesarSalad = new Salad()
  .add('Sallad', imported.inventory['Sallad'])
 .add('Kycklingfilé', imported.inventory['Kycklingfilé'])
@@ -67,13 +68,13 @@ console.log('\n--- Assignment 3 ---------------------------------------')
 Salad.prototype.getPrice = function () {
     return Object.values(this)
         .reduce(((prev, current) => 
-            prev + (typeof current === "object" && current.price)), 0)       // Loop all ingredients and sum price.  
+            prev + (current.hasOwnProperty('price') && current.price)), 0)       // Loop all ingredients and sum price.  
 }
 
 Salad.prototype.count = function (property) {
     return Object.values(this)                                              // loop all ingredients
         .reduce(((prev, current) => 
-            prev + (typeof current === "object" && property in current)), 0)       // if 'current' containts 'property' add 1. Bool converts to 0 or 1. 
+            prev + current.hasOwnProperty('property')), 0)       // if 'current' containts 'property' add 1. Bool converts to 0 or 1. 
 }
 
 console.log('En ceasarsallad kostar ' + myCaesarSalad.getPrice() + 'kr');
