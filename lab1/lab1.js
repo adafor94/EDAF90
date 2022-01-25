@@ -1,6 +1,7 @@
 'use strict';
 /**
  * Reflection question 1
+ * I guess this is because the operators "in" and "hasOwnProperty" returns false if there is no such property. 
  */
 
 const imported = require("./inventory.js");
@@ -15,6 +16,8 @@ names
 
 /**
  * Reflection question 2
+ * For-in includes inherited properties, Object.keys() do not. 
+ * 
  */
 
 console.log('\n--- Assignment 1 ---------------------------------------')
@@ -33,10 +36,9 @@ console.log('\n--- Assignment 2 ---------------------------------------')
 class Salad {
     constructor() {
         Object.defineProperty(this, 'uuid', {
-            value : Salad.instanceCounter++,
+            value : Salad.prototype.instanceCounter++,
             writable: false
         });
-       // this.uuid = 'salad_' + Salad.instanceCounter++;
     }
 
     add(name, properties) {
@@ -48,8 +50,8 @@ class Salad {
     }
 }
 
-Salad.instanceCounter = 0
-
+Salad.prototype.instanceCounter = 0
+// or Salad.instanceCounter = 0? 
 
 let myCaesarSalad = new Salad()
  .add('Sallad', imported.inventory['Sallad'])
@@ -77,18 +79,42 @@ Salad.prototype.count = function (property) {
             prev + current.hasOwnProperty('property')), 0)       // if 'current' containts 'property' add 1. Bool converts to 0 or 1. 
 }
 
+// Is it bad practice to use "Function" keyword? Why? 
+
 console.log('En ceasarsallad kostar ' + myCaesarSalad.getPrice() + 'kr');
 // En ceasarsallad kostar 45kr
 console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör');
 // En ceasarsallad har 3 tillbehör
 
-// reflection question 3
-
+/**reflection question 3
+ * 
+ * All functions have a prototype. By using the class keyword we automatically set the 
+ * prototype of the object to the function prototype. Additional properties inside the class will be but in the
+ * protype. A protype chain is similar to an inheritance chain. 
+ * 
+ * class Salad() { 
+ *  constructor() { ... }
+ * 
+ *  add() { ... }
+ * }
+ *  
+ * is the same as:
+ * 
+ * function Salad() {
+ *  let obj = Object.create(Salad.prototype)            // This explicitly sets the prototype of obj to Salad.prototype. 
+ *  ... 
+ *  return this
+ * }
+ * 
+ * Salad.protype.add = function () { ... } 
+*/
 console.log('typeof Salad: ' + typeof Salad);
 console.log('typeof Salad.prototype: ' + typeof Salad.prototype);
 console.log('typeof Salad.prototype.prototype: ' + typeof Salad.prototype.prototype);
 console.log('typeof myCaesarSalad: ' + typeof myCaesarSalad);
 console.log('typeof myCaesarSalad.prototype: ' + typeof myCaesarSalad.prototype);
+console.log('typeof Object.getPrototypeOf(myCaesarSalad): ' + typeof Object.getPrototypeOf(myCaesarSalad));
+
 console.log('check 1: ' + (Salad.prototype === Object.getPrototypeOf(myCaesarSalad)));
 console.log('check 2: ' + (Object.prototype === Object.getPrototypeOf(Salad.prototype)));
 
@@ -130,16 +156,19 @@ console.log('Med extra bacon kostar den ' + myGourmetSalad.getPrice() + ' kr');
 console.log('\n--- Assignment 5 ---------------------------------------')
 
 console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid + "\n");
+console.log('Min ceasarsallad har uuid: ' + myCaesarSalad.uuid + "\n");
 //myGourmetSalad.uuid = 42;
 
 /**
  * Reflection question 4
- * In the Class-object. Not in the Class.prototype. 
+ * In the prototype. The prototype contains all shared properties. 
  */
+
 /**
  * Reflection question 5
  * Yes. 
  */
+
 /**
  * Reflection question 6
  * Yes, using #. #privatemethod() or #privatefield
