@@ -51,7 +51,7 @@ class ComposeSalad extends Component {
           <SaladSelect id={"select_foundation"} text={'Välj bas:'} property={'foundation'} updateParent={this.updateStateFromChildren}  /> 
           <SaladSelect id={"select_protein"} text={'Välj protein:'} property={'protein'} updateParent={this.updateStateFromChildren} /> 
           <SaladSelect id={"select_dressing"} text={'Välj dressing:'} property={'dressing'}updateParent={this.updateStateFromChildren}  /> 
-          <SaladCheckbox text={'Välj extras:'} property={'extra'} updateParent={this.updateExtras}  /> 
+          <SaladCheckbox id={"checkbox"} text={'Välj extras:'} property={'extra'} updateParent={this.updateExtras}  /> 
 
           <form onSubmit={this.handleSubmit}>
             <input type="submit" value="Submit Salad" />

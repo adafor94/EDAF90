@@ -23,7 +23,7 @@ class SaladSelect extends Component {
             {Object.keys(inventory)
                 .filter(name => inventory[name][this.props.property])         
                 .map(name => 
-                  <option value={name}> {name}, {inventory[name]['price']} kr </option>)}
+                  <option key={name} value={name}> {name}, {inventory[name]['price']} kr </option>)}
 
           </select>
         </label>

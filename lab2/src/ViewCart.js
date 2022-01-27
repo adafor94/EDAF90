@@ -13,7 +13,7 @@ class ViewCart extends Component {
             {"Cart:"}
 
             {this.props.order.map(salad => 
-                <div key={salad.uuid}> {'Sallad nr ' + salad.uuid + ', ' + salad.getPrice() + 'kr, ' + salad.getIngredients()}</div>)
+                <li key={salad.uuid}> {'Sallad nr ' + salad.uuid + ', ' + salad.getPrice() + 'kr, ' + salad.getIngredients()}</li>)
             }
         </label>
       </div>

@@ -20,9 +20,9 @@ class SaladCheckbox extends Component {
         {Object.keys(inventory)
           .filter(name => inventory[name][this.props.property])         
           .map(name => 
-            <div> 
+            <div key={name}> 
               <input type="checkbox" onChange={this.handleClick} id={name} name={name} /> 
-              <label for={name}> {name + ', ' + inventory[name]['price'] + ' kr'} </label> 
+              <label> {name + ', ' + inventory[name]['price'] + ' kr'} </label> 
             </div>)}
       </form>
     );
