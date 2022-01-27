@@ -4,17 +4,19 @@ import inventory from './inventory.ES6';
 
 import {Component} from 'react';
 import ComposeSalad from './ComposeSalad';
+import ViewCart from './ViewCart';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.shoppingCart = [];
+    this.state = {shoppingCart : []};
 
     this.addSaladToCart = this.addSaladToCart.bind(this);
   }
     addSaladToCart(salad) {
-      this.shoppingCart.push(salad);
-      console.log(this.shoppingCart);
+      let stateCopy = {...this.state};
+      stateCopy.shoppingCart.push(salad);      
+      this.setState(stateCopy);
     }
 
   render () {
@@ -25,7 +27,7 @@ class App extends Component {
       </header>
 
       <ComposeSalad inventory={inventory} addSaladToCart = {this.addSaladToCart} />    
-                
+      <ViewCart order={this.state.shoppingCart} />  
       <footer className="pt-3 mt-4 text-muted border-top">
         EDAF90 - webprogrammering
       </footer>

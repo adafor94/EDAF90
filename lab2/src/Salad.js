@@ -1,4 +1,3 @@
-'use strict';
 
 class Salad {
     static instanceCounter = 0;
@@ -11,7 +10,7 @@ class Salad {
     }
 
     add(name, properties) {
-        console.log(name + ' ' + properties);
+       // console.log(name + ' ' + properties);
         this.ingredients[name] = properties;
         return this;
         
@@ -23,13 +22,16 @@ class Salad {
     getPrice() {
         return Object.values(this.ingredients)
             .reduce(((prev, current) => 
-                prev + current.price), 0) 
+                prev + (current.hasOwnProperty('price') && current.price)), 0) 
     }
 
     count(property) {
         return Object.values(this.ingredients)                                              
             .reduce(((prev, current) => 
                 prev + current.hasOwnProperty(property)), 0)  
+    }
+    getIngredients() {
+        return Object.keys(this.ingredients).join(', ')
     }
 }
 

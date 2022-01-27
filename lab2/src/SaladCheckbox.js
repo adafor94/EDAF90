@@ -15,7 +15,7 @@ class SaladCheckbox extends Component {
 
   render() {
     return (
-      <div>
+      <form id="checkbox">
         {this.props.text}
         {Object.keys(inventory)
           .filter(name => inventory[name][this.props.property])         
@@ -24,10 +24,8 @@ class SaladCheckbox extends Component {
               <input type="checkbox" onChange={this.handleClick} id={name} name={name} /> 
               <label for={name}> {name + ', ' + inventory[name]['price'] + ' kr'} </label> 
             </div>)}
-
-      </div>
+      </form>
     );
   }
-
 }
 export default SaladCheckbox;

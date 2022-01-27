@@ -15,6 +15,7 @@ class SaladSelect extends Component {
 
   render() {
     return (
+      <form id={this.props.id}> 
         <label>
           {this.props.text}
           <select value={this.state.value} onChange={this.handleChange}>
@@ -26,6 +27,7 @@ class SaladSelect extends Component {
 
           </select>
         </label>
+      </form>
     );
   }
 
