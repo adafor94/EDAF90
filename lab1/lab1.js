@@ -34,23 +34,23 @@ console.log('\n--- Assignment 2 ---------------------------------------')
 
 
 class Salad {
+    static instanceCounter = 0;
     constructor() {
+        this['ingredients'] = {}
         Object.defineProperty(this, 'uuid', {
-            value : Salad.prototype.instanceCounter++,
+            value : Salad.instanceCounter++,
             writable: false
         });
     }
 
     add(name, properties) {
-        this[name] = properties;
+        this.ingredients[name] = properties;
         return this;
     }
     remove(name) {
-        delete this[name];
+        delete this.ingredients.name;
     }
 }
-
-Salad.prototype.instanceCounter = 0
 // or Salad.instanceCounter = 0? 
 
 let myCaesarSalad = new Salad()
@@ -68,15 +68,15 @@ console.log(JSON.stringify(myCaesarSalad) + '\n');
 console.log('\n--- Assignment 3 ---------------------------------------')
 
 Salad.prototype.getPrice = function () {
-    return Object.values(this)
+    return Object.values(this.ingredients)
         .reduce(((prev, current) => 
-            prev + (current.hasOwnProperty('price') && current.price)), 0)       // Loop all ingredients and sum price.  
+            prev + current.price), 0)       // Loop all ingredients and sum price.  
 }
 
 Salad.prototype.count = function (property) {
-    return Object.values(this)                                              // loop all ingredients
+    return Object.values(this.ingredients)                                              // loop all ingredients
         .reduce(((prev, current) => 
-            prev + current.hasOwnProperty('property')), 0)       // if 'current' containts 'property' add 1. Bool converts to 0 or 1. 
+            prev + current.hasOwnProperty(property)), 0)       // if 'current' containts 'property' add 1. Bool converts to 0 or 1. 
 }
 
 // Is it bad practice to use "Function" keyword? Why? 
@@ -132,9 +132,9 @@ class GourmetSalad extends Salad {
     }
 
     getPrice() {
-        return Object.values(this)
+        return Object.values(this.ingredients)
         .reduce(((prev, current) => 
-            prev + (typeof current === "object" && current.price) * (current.size || 1)), 0)   
+            prev + current.price * (current.size || 1)), 0)   
     }
 }
 
@@ -157,7 +157,6 @@ console.log('\n--- Assignment 5 ---------------------------------------')
 
 console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid + "\n");
 console.log('Min ceasarsallad har uuid: ' + myCaesarSalad.uuid + "\n");
-//myGourmetSalad.uuid = 42;
 
 /**
  * Reflection question 4
