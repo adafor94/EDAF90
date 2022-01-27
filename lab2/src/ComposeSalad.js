@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import SaladCheckbox from './SaladCheckbox';
 import SaladSelect from './SaladSelect';
+import Salad from './Salad';
 
 class ComposeSalad extends Component {
   constructor(props) {
@@ -26,7 +27,15 @@ class ComposeSalad extends Component {
 
   handleSubmit(event) {
     event.preventDefault();    
-    alert(JSON.stringify(this.state));
+    let salad = new Salad();
+    Object.values(this.state)
+      .forEach(field => (typeof field === 'object') 
+        ? Object.keys(field).forEach(name => salad.add(name, this.props.inventory[name])) 
+        : salad.add(field, this.props.inventory[field]));
+
+    this.props.addSaladToCart(salad);
+    // alert(JSON.stringify(this.state));
+    // alert(JSON.stringify(salad))
   }
 
   render() {
