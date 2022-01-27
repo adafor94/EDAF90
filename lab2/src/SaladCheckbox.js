@@ -4,14 +4,13 @@ import inventory from './inventory.ES6';
 class SaladCheckbox extends Component {
   constructor(props) {
     super(props);
-    this.state = {checked : {} };
+    this.state = {};
 
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(event) {
-    alert(JSON.stringify(this.state.checked));
-    this.setState(this.state.checked[event.target.name] = !this.state.checked[event.target.name])    
+    this.props.updateParent(event.target.name);   
   }
 
   render() {
@@ -20,7 +19,11 @@ class SaladCheckbox extends Component {
         {this.props.text}
         {Object.keys(inventory)
           .filter(name => inventory[name][this.props.property])         
-          .map(name => <div> <input type="checkbox" onChange={this.handleClick} id={name} name={name} /> <label for={name}> {name} </label> </div>)}
+          .map(name => 
+            <div> 
+              <input type="checkbox" onChange={this.handleClick} id={name} name={name} /> 
+              <label for={name}> {name + ', ' + inventory[name]['price'] + ' kr'} </label> 
+            </div>)}
 
       </div>
     );
