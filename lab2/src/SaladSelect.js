@@ -1,10 +1,13 @@
 import { Component } from 'react';
-import inventory from './inventory.ES6';
+//import inventory from './inventory.ES6';
 
 class SaladSelect extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {items : Object.keys(this.props.inventory)
+      .filter(name => this.props.inventory[name][this.props.property])         
+      .map(name => 
+        <option key={name} value={name}> {name}, {this.props.inventory[name]['price']} kr </option>)};
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -19,11 +22,8 @@ class SaladSelect extends Component {
         <label>
           {this.props.text}
           <select value={this.state.value} onChange={this.handleChange}>
-
-            {Object.keys(inventory)
-                .filter(name => inventory[name][this.props.property])         
-                .map(name => 
-                  <option key={name} value={name}> {name}, {inventory[name]['price']} kr </option>)}
+            
+            {this.state.items}
 
           </select>
         </label>

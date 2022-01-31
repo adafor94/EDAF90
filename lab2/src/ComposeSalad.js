@@ -48,10 +48,10 @@ class ComposeSalad extends Component {
         <div className="row h-200 p-5 bg-light border rounded-3">
           <h2>Välj innehållet i din sallad</h2>
 
-          <SaladSelect id={"select_foundation"} text={'Välj bas:'} property={'foundation'} updateParent={this.updateStateFromChildren}  /> 
-          <SaladSelect id={"select_protein"} text={'Välj protein:'} property={'protein'} updateParent={this.updateStateFromChildren} /> 
-          <SaladSelect id={"select_dressing"} text={'Välj dressing:'} property={'dressing'}updateParent={this.updateStateFromChildren}  /> 
-          <SaladCheckbox id={"checkbox"} text={'Välj extras:'} property={'extra'} updateParent={this.updateExtras}  /> 
+          <SaladSelect id={"select_foundation"} text={'Välj bas:'} property={'foundation'} updateParent={this.updateStateFromChildren} inventory={this.props.inventory} /> 
+          <SaladSelect id={"select_protein"} text={'Välj protein:'} property={'protein'} updateParent={this.updateStateFromChildren} inventory={this.props.inventory}/> 
+          <SaladSelect id={"select_dressing"} text={'Välj dressing:'} property={'dressing'}updateParent={this.updateStateFromChildren} inventory={this.props.inventory} /> 
+          <SaladCheckbox id={"checkbox"} text={'Välj extras:'} property={'extra'} updateParent={this.updateExtras} inventory={this.props.inventory} /> 
 
           <form onSubmit={this.handleSubmit}>
             <input type="submit" value="Submit Salad" />
