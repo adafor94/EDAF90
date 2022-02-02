@@ -16,7 +16,7 @@ class Salad {
         
     }
     remove(name) {
-        delete this.ingredients.name;
+        delete this.ingredients[name];
     }
 
     getPrice() {

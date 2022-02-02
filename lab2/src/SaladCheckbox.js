@@ -4,13 +4,7 @@ import { Component } from 'react';
 class SaladCheckbox extends Component {
   constructor(props) {
     super(props);
-    this.state = {items : Object.keys(this.props.inventory)
-      .filter(name => this.props.inventory[name][this.props.property])         
-      .map(name =>
-        <div key={name}> 
-          <input type="checkbox" onChange={this.handleClick} id={name} name={name} /> 
-          <label> {name + ', ' + this.props.inventory[name]['price'] + ' kr'} </label> 
-        </div>)}
+    this.state = {}
 
     this.handleClick = this.handleClick.bind(this);
   }
@@ -21,11 +15,16 @@ class SaladCheckbox extends Component {
 
   render() {
     return (
-      // is this the correct way to cache the result? Or should it rather be stored in composeSalad? 
-      <form id="checkbox">
+      <div id="checkbox" className="form-check"> 
         {this.props.text}
-          {this.state.items}   
-      </form>
+        {Object.keys(this.props.inventory)
+          .filter(name => this.props.inventory[name][this.props.property])         
+          .map(name =>
+            <div key={name} > 
+              <input type="checkbox" onChange={this.handleClick} id={name} name={name} checked={this.props?.values[name] || false} /> 
+              <label> {name + ', ' + this.props.inventory[name]['price'] + ' kr'} </label> 
+            </div>)}
+      </div>
     );
   }
 }

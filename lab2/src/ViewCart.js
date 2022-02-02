@@ -8,10 +8,10 @@ class ViewCart extends Component {
 
   render() {
     return (
-      <div id={"cart"}> 
+      
+      <div id={"cart"} className=""> 
         <label>
             {"Cart:"}
-
             {this.props.order.map(salad => 
                 <li key={salad.uuid}> {'Sallad nr ' + salad.uuid + ', ' + salad.getPrice() + 'kr, ' + salad.getIngredients()}</li>)
             }

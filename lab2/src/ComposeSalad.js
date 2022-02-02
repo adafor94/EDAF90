@@ -7,7 +7,7 @@ class ComposeSalad extends Component {
   constructor(props) {
     super(props);
     this.state = {foundation : '', protein : '', dressing : '', extra : {} };
-
+    
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateStateFromChildren = this.updateStateFromChildren.bind(this);
     this.updateExtras = this.updateExtras.bind(this);
@@ -36,10 +36,6 @@ class ComposeSalad extends Component {
     this.props.addSaladToCart(salad);
     this.setState({foundation : '', protein : '', dressing : '', extra : {}});
 
-    document.getElementById("checkbox").reset();
-    document.getElementById("select_foundation").reset();
-    document.getElementById("select_protein").reset();
-    document.getElementById("select_dressing").reset();
   }
 
   render() {
@@ -47,13 +43,13 @@ class ComposeSalad extends Component {
       <div id="Compose" className="continer col-12">
         <div className="row h-200 p-5 bg-light border rounded-3">
           <h2>Välj innehållet i din sallad</h2>
-
-          <SaladSelect id={"select_foundation"} text={'Välj bas:'} property={'foundation'} updateParent={this.updateStateFromChildren} inventory={this.props.inventory} /> 
-          <SaladSelect id={"select_protein"} text={'Välj protein:'} property={'protein'} updateParent={this.updateStateFromChildren} inventory={this.props.inventory}/> 
-          <SaladSelect id={"select_dressing"} text={'Välj dressing:'} property={'dressing'}updateParent={this.updateStateFromChildren} inventory={this.props.inventory} /> 
-          <SaladCheckbox id={"checkbox"} text={'Välj extras:'} property={'extra'} updateParent={this.updateExtras} inventory={this.props.inventory} /> 
-
-          <form onSubmit={this.handleSubmit}>
+          
+            <form onSubmit={this.handleSubmit}>
+            <SaladSelect value={this.state.foundation} id={"select_foundation"} text={'Välj bas:'} property={'foundation'} updateParent={this.updateStateFromChildren} inventory={this.props.inventory} /> 
+            <SaladSelect value={this.state.protein} id={"select_protein"} text={'Välj protein:'} property={'protein'} updateParent={this.updateStateFromChildren} inventory={this.props.inventory}/> 
+            <SaladSelect value={this.state.dressing} id={"select_dressing"} text={'Välj dressing:'} property={'dressing'}updateParent={this.updateStateFromChildren} inventory={this.props.inventory} /> 
+            <SaladCheckbox values={this.state.extra} id={"checkbox"} text={'Välj extras:'} property={'extra'} updateParent={this.updateExtras} inventory={this.props.inventory} /> 
+          
             <input type="submit" value="Submit Salad" />
           </form>
         </div>

@@ -4,10 +4,7 @@ import { Component } from 'react';
 class SaladSelect extends Component {
   constructor(props) {
     super(props);
-    this.state = {items : Object.keys(this.props.inventory)
-      .filter(name => this.props.inventory[name][this.props.property])         
-      .map(name => 
-        <option key={name} value={name}> {name}, {this.props.inventory[name]['price']} kr </option>)};
+    this.state = {}
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -18,16 +15,16 @@ class SaladSelect extends Component {
 
   render() {
     return (
-      <form id={this.props.id}> 
         <label>
           {this.props.text}
-          <select value={this.state.value} onChange={this.handleChange}>
-            
-            {this.state.items}
+          <select value={this.props.value} className="form-select" onChange={this.handleChange}>
+            {Object.keys(this.props.inventory)
+              .filter(name => this.props.inventory[name][this.props.property])         
+              .map(name => 
+                <option key={name} value={name}> {name}, {this.props.inventory[name]['price']} kr </option>)}
 
           </select>
         </label>
-      </form>
     );
   }
 

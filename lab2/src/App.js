@@ -9,14 +9,15 @@ import ViewCart from './ViewCart';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {shoppingCart : []};
+    this.state = { shoppingCart : []};
 
     this.addSaladToCart = this.addSaladToCart.bind(this);
   }
-    addSaladToCart(salad) {
-      let stateCopy = {...this.state};
-      stateCopy.shoppingCart.push(salad);      
-      this.setState(stateCopy);
+
+    addSaladToCart(salad) {    
+      this.setState((state, props) => {
+        return {shoppingCart : [...state.shoppingCart,salad]};
+      })
     }
 
   render () {
