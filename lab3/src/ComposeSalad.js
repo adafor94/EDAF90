@@ -27,6 +27,7 @@ class ComposeSalad extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
     let salad = new Salad();
     Object.values(this.state).forEach((field) =>
       typeof field === "object"
@@ -47,7 +48,7 @@ class ComposeSalad extends Component {
         <div className="row h-200 p-5 bg-light border rounded-3">
           <h2>Välj innehållet i din sallad</h2>
 
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} class="needs-validation">
             <SaladSelect
               value={this.state.foundation}
               id={"select_foundation"}
