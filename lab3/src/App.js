@@ -7,6 +7,7 @@ import ComposeSalad from "./ComposeSalad";
 import ViewCart from "./ViewCart";
 import { Link, Routes, Route } from "react-router-dom";
 import ComposeSaladWrapper from "./ComposeSaladWrapper";
+import ViewIngredient from "./ViewIngredient";
 
 class App extends Component {
   constructor(props) {
@@ -56,6 +57,10 @@ class App extends Component {
         <Route
           path="/view-order"
           element={<ViewCart order={this.state.shoppingCart} />}
+        />
+        <Route
+          path="/view-ingredient/:name"
+          element={<ViewIngredient inventory={inventory} />}
         />
         <Route path="*" element={<div>Sorry, page not found</div>} />
       </Routes>
