@@ -6,6 +6,7 @@ import { Component } from "react";
 import ComposeSalad from "./ComposeSalad";
 import ViewCart from "./ViewCart";
 import { Link, Routes, Route } from "react-router-dom";
+import ComposeSaladWrapper from "./ComposeSaladWrapper";
 
 class App extends Component {
   constructor(props) {
@@ -46,15 +47,11 @@ class App extends Component {
         <Route
           path="/compose-salad"
           element={
-            <ComposeSalad
+            <ComposeSaladWrapper
               inventory={inventory}
               addSaladToCart={this.addSaladToCart}
             />
           }
-        />
-        <Route
-          path="/view-order"
-          element={<ViewCart order={this.state.shoppingCart} />}
         />
         <Route
           path="/view-order"
