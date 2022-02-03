@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component } from "react";
 
 class ViewCart extends Component {
   constructor(props) {
@@ -8,14 +8,27 @@ class ViewCart extends Component {
 
   render() {
     return (
-      
-      <div id={"cart"} className=""> 
+      <div id={"cart"} className="row h-200 p-5 bg-light border rounded-3">
         <label>
-            {"Cart:"}
-            {this.props.order.map(salad => 
-                <li key={salad.uuid}> {'Sallad nr ' + salad.uuid + ', ' + salad.getPrice() + 'kr, ' + salad.getIngredients()}</li>)
-            }
+          <h2> Cart </h2>
+          {this.props.order.map((salad) => (
+            <li key={salad.uuid}>
+              {" "}
+              {"Sallad nr " +
+                salad.uuid +
+                ", " +
+                salad.getPrice() +
+                "kr, " +
+                salad.getIngredients()}
+            </li>
+          ))}
         </label>
+        <div className="">
+          <strong> Total: </strong>
+          {this.props.order.reduce((prev, current) => {
+            return prev + current.getPrice();
+          }, 0) + "kr"}
+        </div>
       </div>
     );
   }
