@@ -1,0 +1,28 @@
+1: ComposeSalad is a class extending react.Component. Is there a difference between 
+class based components and function components, for example function App(){...} 
+that the react template builder created for you?
+    - One difference used to be that functional components can't have states. But since React 16.8 they can by using hooks like useState().
+    Also, react lifecycle methods, like componentDidMount, can be used in classes. 
+
+2: The render function must be a proper function of this.props and this.state. 
+What happens if the output of the render function is depending on other data?
+    - It will not re-render when that data is uppdated? 
+
+3: In the code above, foundations are computed every time a component is rendered. 
+The inventory changes very infrequent so this is inefficient. Can you cache
+foundations so it is only computed when props.inventory changes?
+    - Maybe the way we have done it works. Maybe it should be cached in ComposeSalad? 
+
+4: What triggers react to call the render function and update the DOM?
+    - Initiating an element or update its state. 
+
+5: When the user change the html form state (DOM), does this change
+the state of your component?
+    - Yes. It triggers a callback that changes the state in ComposeSalad. 
+
+6: What is the value of "this" in the event handling call-back functions?
+    - It is undefined, unless explicitly bound in the constructor. Or using a arrow function. 
+
+7: How is the prototype chain affected when copying an object with
+copy = {...sourceObject}?
+    - The spread operator copies the objects OWN enumerable properties, which means NOT the properties of the prototype. 
