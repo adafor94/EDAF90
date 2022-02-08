@@ -27,19 +27,21 @@ class ComposeSalad extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    event.target.classList.add("was-validated");
+    if (event.target.checkValidity()) {
+      let salad = new Salad();
+      Object.values(this.state).forEach((field) =>
+        typeof field === "object"
+          ? Object.keys(field).forEach((name) =>
+              salad.add(name, this.props.inventory[name])
+            )
+          : salad.add(field, this.props.inventory[field])
+      );
 
-    let salad = new Salad();
-    Object.values(this.state).forEach((field) =>
-      typeof field === "object"
-        ? Object.keys(field).forEach((name) =>
-            salad.add(name, this.props.inventory[name])
-          )
-        : salad.add(field, this.props.inventory[field])
-    );
-
-    this.props.addSaladToCart(salad);
-    this.setState({ foundation: "", protein: "", dressing: "", extra: {} });
-    this.props.navigate("/view-order");
+      this.props.addSaladToCart(salad);
+      this.setState({ foundation: "", protein: "", dressing: "", extra: {} });
+      this.props.navigate("/view-order");
+    }
   }
 
   render() {
@@ -48,7 +50,11 @@ class ComposeSalad extends Component {
         <div className="row h-200 p-5 bg-light border rounded-3">
           <h2>Välj innehållet i din sallad</h2>
 
-          <form onSubmit={this.handleSubmit} class="needs-validation">
+          <form
+            noValidate
+            onSubmit={this.handleSubmit}
+            className="needs-validation"
+          >
             <SaladSelect
               value={this.state.foundation}
               id={"select_foundation"}

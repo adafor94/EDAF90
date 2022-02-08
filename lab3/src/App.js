@@ -5,7 +5,7 @@ import inventory from "./inventory.ES6";
 import { Component } from "react";
 import ComposeSalad from "./ComposeSalad";
 import ViewCart from "./ViewCart";
-import { Link, Routes, Route } from "react-router-dom";
+import { NavLink, Link, Routes, Route } from "react-router-dom";
 import ComposeSaladWrapper from "./ComposeSaladWrapper";
 import ViewIngredient from "./ViewIngredient";
 
@@ -62,7 +62,7 @@ class App extends Component {
           path="/view-ingredient/:name"
           element={<ViewIngredient inventory={inventory} />}
         />
-        <Route path="*" element={<div>Sorry, page not found</div>} />
+        <Route path="*" element={<div> Sorry, page not found</div>} />
       </Routes>
     );
   }

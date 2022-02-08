@@ -33,8 +33,8 @@ class SaladSelect extends Component {
               </option>
             ))}
         </select>
-        <div class="valid-feedback">well done</div>
-        <div class="invalid-feedback">not so good</div>
+        <div className="valid-feedback">well done</div>
+        <div className="invalid-feedback">not so good</div>
       </div>
     );
   }
