@@ -15,6 +15,7 @@ class SaladCheckbox extends Component {
   }
 
   render() {
+    //
     return (
       <div id="checkbox" className="form-check">
         {this.props.text}

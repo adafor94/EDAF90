@@ -6,17 +6,63 @@ import ViewCart from "./ViewCart";
 import { Link, Routes, Route } from "react-router-dom";
 import ComposeSaladWrapper from "./ComposeSaladWrapper";
 import ViewIngredient from "./ViewIngredient";
+import inventory from "./inventory.ES6";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { shoppingCart: [], inventory: {} };
+    this.state = { shoppingCart: [], inv: {} };
     this.addSaladToCart = this.addSaladToCart.bind(this);
+
+    this.serverUrl = "http://localhost:8080/";
+  }
+
+  componentDidMount() {
+    const updatedInventory = {};
+    const categories = ["foundations", "proteins", "dressings", "extras"];
+    Promise.all(
+      categories.map((category) => {
+        this.fetchCategory(category)
+          .then((ingredients) => {
+            ingredients.forEach((ingredient) =>
+              this.fetchIngredient(category, ingredient).then(
+                (attributes) => (updatedInventory[ingredient] = attributes)
+              )
+            );
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      })
+    ).then((_) => {
+      this.setState((state, props) => {
+        return { inv: updatedInventory };
+      });
+    });
+  }
+
+  fetchIngredient(category, ingredient) {
+    const url = this.serverUrl + category + "/" + ingredient;
+    return this.safeFetchJson(url);
+  }
+
+  fetchCategory(category) {
+    const url = this.serverUrl + category;
+    return this.safeFetchJson(url);
   }
 
   addSaladToCart(salad) {
     this.setState((state, props) => {
       return { shoppingCart: [...state.shoppingCart, salad] };
+    });
+  }
+
+  safeFetchJson(url) {
+    return fetch(url).then((response) => {
+      if (!response.ok) {
+        throw new Error(`${url} returned status ${response.status}`);
+      }
+      return response.json();
     });
   }
 
@@ -47,7 +93,7 @@ class App extends Component {
           path="/compose-salad"
           element={
             <ComposeSaladWrapper
-              inventory={this.state.inventory}
+              inventory={this.state.inv}
               addSaladToCart={this.addSaladToCart}
             />
           }
@@ -58,7 +104,7 @@ class App extends Component {
         />
         <Route
           path="/view-ingredient/:name"
-          element={<ViewIngredient inventory={this.state.inventory} />}
+          element={<ViewIngredient inventory={this.state.inv} />}
         />
         <Route path="*" element={<div> Sorry, page not found</div>} />
       </Routes>
