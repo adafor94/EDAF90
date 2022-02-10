@@ -7,6 +7,7 @@ class ViewCart extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   handleSubmit(event) {
     console.log(window.localStorage.getItem("order"));
     event.preventDefault();
@@ -29,7 +30,6 @@ class ViewCart extends Component {
     );
   }
   render() {
-    window.localStorage.setItem("order", JSON.stringify(this.props.order));
     return (
       <div id={"cart"} className="row h-200 p-5 bg-light border rounded-3">
         <label>
