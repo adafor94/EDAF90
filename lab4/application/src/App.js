@@ -6,17 +6,26 @@ import ViewCart from "./ViewCart";
 import { Link, Routes, Route } from "react-router-dom";
 import ComposeSaladWrapper from "./ComposeSaladWrapper";
 import ViewIngredient from "./ViewIngredient";
-import inventory from "./inventory.ES6";
 
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = { shoppingCart: [], inv: {} };
     this.addSaladToCart = this.addSaladToCart.bind(this);
 
     this.serverUrl = "http://localhost:8080/";
   }
-
+  parseStoredOrder() {
+    const order = JSON.parse(window.localStorage.getItem("order"));
+    console.log("ORDERS:");
+    console.log(order);
+    // if (order == null) {
+    //   return [];
+    // } else {
+    //   return order;
+    // }
+  }
   componentDidMount() {
     const updatedInventory = {};
     const categories = ["foundations", "proteins", "dressings", "extras"];
@@ -67,6 +76,7 @@ class App extends Component {
   }
 
   render() {
+    this.parseStoredOrder();
     return (
       <div className="container py-4">
         <Header />
@@ -81,7 +91,7 @@ class App extends Component {
       </div>
     );
   }
-
+  //
   renderRouter() {
     return (
       <Routes>

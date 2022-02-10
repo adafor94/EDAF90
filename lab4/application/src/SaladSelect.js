@@ -15,7 +15,7 @@ class SaladSelect extends Component {
   }
 
   render() {
-    console.log(this.props.inventory); // test
+    console.log(this.props.inventory); // tests
     return (
       <div>
         {this.props.text}

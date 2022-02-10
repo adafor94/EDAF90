@@ -4,9 +4,32 @@ class ViewCart extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-  }
 
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleSubmit(event) {
+    console.log(window.localStorage.getItem("order"));
+    event.preventDefault();
+    const newArray = this.props.order.map((salad) =>
+      Object.keys(salad.ingredients)
+    );
+    console.log(newArray);
+    const url = "http://localhost:8080/orders/";
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newArray),
+    }).then((res) =>
+      res.json().then((data) => {
+        alert(JSON.stringify(data));
+      })
+    );
+  }
   render() {
+    window.localStorage.setItem("order", JSON.stringify(this.props.order));
     return (
       <div id={"cart"} className="row h-200 p-5 bg-light border rounded-3">
         <label>
@@ -29,6 +52,9 @@ class ViewCart extends Component {
             return prev + current.getPrice();
           }, 0) + "kr"}
         </div>
+        <form onSubmit={this.handleSubmit} className="needs-validation">
+          <input type="submit" value="Order" />
+        </form>
       </div>
     );
   }
