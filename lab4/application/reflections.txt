@@ -1,0 +1,9 @@
+1: How do you replace the application icon, favicon.ico?
+    - public/index.html, line 5
+
+2: If you use nav-pills instead of nav-tabs the selected page is
+no longer highlighted in the menu, why? Hint: <NavLink> and the active css class.
+
+3: What is the difference between <Link to="compose-salad" and
+<Link to="/compose-salad". Try it, look in the browser url field.
+    - Nothing? 
