@@ -10,44 +10,41 @@ import ViewIngredient from "./ViewIngredient";
 class App extends Component {
   constructor(props) {
     super(props);
+    const saved = window.localStorage.getItem("order");
+    const parsed = JSON.parse(saved);
 
-    this.state = { shoppingCart: [], inv: {} };
+    this.state = {
+      shoppingCart: parsed,
+      inv: {},
+    };
     this.addSaladToCart = this.addSaladToCart.bind(this);
+    this.emptyCart = this.emptyCart.bind(this);
 
     this.serverUrl = "http://localhost:8080/";
   }
-  parseStoredOrder() {
-    const order = JSON.parse(window.localStorage.getItem("order"));
-    console.log("ORDERS:");
-    console.log(order);
-    // if (order == null) {
-    //   return [];
-    // } else {
-    //   return order;
-    // }
-  }
+
   componentDidMount() {
     const updatedInventory = {};
     const categories = ["foundations", "proteins", "dressings", "extras"];
     Promise.all(
       categories.map((category) => {
-        this.fetchCategory(category)
-          .then((ingredients) => {
-            ingredients.forEach((ingredient) =>
-              this.fetchIngredient(category, ingredient).then(
-                (attributes) => (updatedInventory[ingredient] = attributes)
-              )
-            );
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+        this.fetchCategory(category).then((ingredients) => {
+          ingredients.forEach((ingredient) =>
+            this.fetchIngredient(category, ingredient).then(
+              (attributes) => (updatedInventory[ingredient] = attributes)
+            )
+          );
+        });
       })
-    ).then((_) => {
-      this.setState((state, props) => {
-        return { inv: updatedInventory };
+    )
+      .then((response) => {
+        this.setState((state, props) => {
+          return { inv: updatedInventory };
+        });
+      })
+      .catch((error) => {
+        console.error(error);
       });
-    });
   }
 
   fetchIngredient(category, ingredient) {
@@ -60,7 +57,18 @@ class App extends Component {
     return this.safeFetchJson(url);
   }
 
+  emptyCart() {
+    window.localStorage.setItem("order", "[]");
+
+    this.setState((state, props) => {
+      return { shoppingCart: [] };
+    });
+  }
   addSaladToCart(salad) {
+    window.localStorage.setItem(
+      "order",
+      JSON.stringify([...this.state.shoppingCart, salad])
+    );
     this.setState((state, props) => {
       return { shoppingCart: [...state.shoppingCart, salad] };
     });
@@ -76,7 +84,6 @@ class App extends Component {
   }
 
   render() {
-    this.parseStoredOrder();
     return (
       <div className="container py-4">
         <Header />
@@ -110,7 +117,12 @@ class App extends Component {
         />
         <Route
           path="/view-order"
-          element={<ViewCart order={this.state.shoppingCart} />}
+          element={
+            <ViewCart
+              order={this.state.shoppingCart}
+              emptyCart={this.emptyCart}
+            />
+          }
         />
         <Route
           path="/view-ingredient/:name"

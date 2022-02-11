@@ -1,15 +1,16 @@
+import { v4 as uuidv4 } from "uuid";
+
 class Salad {
   static instanceCounter = 0;
   constructor() {
     this["ingredients"] = {};
     Object.defineProperty(this, "uuid", {
-      value: Salad.instanceCounter++,
+      value: uuidv4(),
       writable: false,
     });
   }
 
   add(name, properties) {
-    // console.log(name + ' ' + properties);
     this.ingredients[name] = properties;
     return this;
   }
@@ -42,6 +43,10 @@ Salad.getPrice = function (salad) {
       prev + (current.hasOwnProperty("price") && current.price),
     0
   );
+};
+
+Salad.getIngredients = function (salad) {
+  return Object.keys(salad.ingredients).join(", ");
 };
 
 export default Salad;
