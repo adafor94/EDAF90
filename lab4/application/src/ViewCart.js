@@ -14,7 +14,6 @@ class ViewCart extends Component {
     const newArray = this.props.order.map((salad) =>
       Object.keys(salad.ingredients)
     );
-
     const url = "http://localhost:8080/orders/";
 
     fetch(url, {

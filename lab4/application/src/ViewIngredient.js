@@ -2,14 +2,16 @@ import { useParams } from "react-router-dom";
 
 function ViewIngredient(props) {
   const ingredient = props.inventory[useParams().name];
+  const name = useParams().name;
 
-  if (!ingredient) {
-    return <div> Ingredient not found </div>;
-  } else {
-    return Object.keys(ingredient).map((key) => (
-      <div> {key + " : " + ingredient[key]} </div>
-    ));
-  }
+  return (
+    <div key={name}>
+      {" "}
+      {Object.keys(ingredient).map((key) => (
+        <div key={key}> {key + " : " + ingredient[key]} </div>
+      ))}{" "}
+    </div>
+  );
 }
 
 export default ViewIngredient;

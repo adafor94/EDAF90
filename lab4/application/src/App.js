@@ -11,6 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     const saved = window.localStorage.getItem("order");
+    console.log(saved);
     const parsed = JSON.parse(saved);
 
     this.state = {
@@ -64,11 +65,14 @@ class App extends Component {
       return { shoppingCart: [] };
     });
   }
+
   addSaladToCart(salad) {
+    console.log(salad);
     window.localStorage.setItem(
       "order",
       JSON.stringify([...this.state.shoppingCart, salad])
     );
+    console.log(window.localStorage.getItem("order"));
     this.setState((state, props) => {
       return { shoppingCart: [...state.shoppingCart, salad] };
     });
